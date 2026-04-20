@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 // ─────────────────────────────────────────────
 // Speacher — AnalyzingPage.jsx
@@ -20,6 +21,9 @@ const STEPS = [
 // ── 더미 시뮬레이터 (백엔드 연동 전 테스트용) ──
 // 백엔드 연동 시 아래 useDummyProgress를 usePolling으로 교체
 const useDummyProgress = (onComplete) => {
+  const { jobId = "demo" } = useParams();
+  const navigate = useNavigate();
+
   const [currentStep, setCurrentStep] = useState(1);
   const [stepProgress, setStepProgress] = useState(0); // 현재 단계 내 진행도 0~100
   const [done, setDone] = useState(false);
@@ -75,9 +79,9 @@ const useDummyProgress = (onComplete) => {
 //   return { currentStep, stepProgress, totalProgress, done };
 // };
 
-export default function AnalyzingPage({ jobId = "demo", onNavigate }) {
+export default function AnalyzingPage() {
   const { currentStep, stepProgress, totalProgress, done } = useDummyProgress(
-    () => onNavigate?.("result")
+    () => navigate(`/result/${jobId}`)
   );
 
   return (

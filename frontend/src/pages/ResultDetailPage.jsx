@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
@@ -47,7 +48,8 @@ const eventStyle = {
   none:   { border: "border-neutral-800",    bg: "bg-neutral-900",    badge: "", text: "text-neutral-400" },
 };
 
-export default function ResultDetailPage({ onNavigate }) {
+export default function ResultDetailPage() {
+  const navigate = useNavigate();
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
   const feedbackRef = useRef(null);
@@ -181,7 +183,7 @@ export default function ResultDetailPage({ onNavigate }) {
       {/* 헤더 */}
       <header className="sticky top-0 z-20 bg-neutral-950/90 backdrop-blur border-b border-neutral-800/60 px-6 py-4 flex items-center gap-4">
         <button
-          onClick={() => onNavigate?.("result")}
+          onClick={() => navigate("/result/demo")}
           className="w-9 h-9 rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-all"
         >
           <ArrowLeftIcon />

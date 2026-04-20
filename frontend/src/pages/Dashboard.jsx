@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../stores/authStore";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
@@ -48,7 +50,9 @@ const scoreBadgeBg = (score) => {
   return "bg-red-500/10 text-red-400 border-red-500/20";
 };
 
-export default function Dashboard({ user = { name: "사용자" }, onNavigate }) {
+export default function Dashboard() {
+  const navigate = useNavigate();
+  const { user = { name: "사용자" }, clearAuth } = useAuthStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
@@ -124,7 +128,22 @@ export default function Dashboard({ user = { name: "사용자" }, onNavigate }) 
 
   const nav = (page) => {
     setSidebarOpen(false);
-    onNavigate?.(page);
+    if (page === "logout") {
+      clearAuth();
+      navigate("/");
+    } else if (page === "dashboard") {
+      navigate("/dashboard");
+    } else if (page === "upload") {
+      navigate("/upload");
+    } else if (page === "history") {
+      navigate("/history");
+    } else if (page === "mypage") {
+      navigate("/mypage");
+    } else if (page === "result") {
+      navigate("/result/demo");
+    } else {
+      navigate("/" + page);
+    }
   };
 
   const diffSign = DUMMY_STATS.diff >= 0 ? "+" : "";

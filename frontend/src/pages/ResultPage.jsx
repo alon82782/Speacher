@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // ─────────────────────────────────────────────
 // Speacher — ResultPage.jsx
@@ -83,7 +84,8 @@ const channelBg = {
   delivery: "bg-amber-500/10 border-amber-500/20 text-amber-400",
 };
 
-export default function ResultPage({ onNavigate }) {
+export default function ResultPage() {
+  const navigate = useNavigate();
   const r = DUMMY_RESULT;
   const grade = getGrade(r.totalScore);
 
@@ -96,7 +98,7 @@ export default function ResultPage({ onNavigate }) {
       <header className="sticky top-0 z-20 bg-neutral-950/90 backdrop-blur border-b border-neutral-800/60 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
-            onClick={() => onNavigate?.("dashboard")}
+            onClick={() => navigate("/dashboard")}
             className="w-9 h-9 rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-150"
           >
             <ArrowLeftIcon />
@@ -111,7 +113,7 @@ export default function ResultPage({ onNavigate }) {
 
         {/* 결과 상세 버튼 */}
         <button
-          onClick={() => onNavigate?.("result-detail")}
+          onClick={() => navigate("/result/demo/detail")}
           className="flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-sm text-neutral-300 hover:text-white px-4 py-2 rounded-xl transition-all duration-150"
         >
           <ChartIcon />
@@ -250,14 +252,14 @@ export default function ResultPage({ onNavigate }) {
         {/* ── 하단 버튼 ── */}
         <div className="grid grid-cols-2 gap-3 pb-6">
           <button
-            onClick={() => onNavigate?.("result-detail")}
+            onClick={() => navigate("/result/demo/detail")}
             className="flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold py-3 rounded-xl transition-all duration-150"
           >
             <ChartIcon />
             결과 상세 보기
           </button>
           <button
-            onClick={() => onNavigate?.("upload")}
+            onClick={() => navigate("/upload")}
             className="flex items-center justify-center gap-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white text-sm font-semibold py-3 rounded-xl transition-all duration-150"
           >
             <RetryIcon />

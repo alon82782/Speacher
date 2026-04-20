@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // ─────────────────────────────────────────────
 // Speacher — HistoryPage.jsx
@@ -27,7 +28,8 @@ const scoreBadge = (score) => {
   return               { bg: "bg-red-500/10    border-red-500/20    text-red-400",    grade: "D" };
 };
 
-export default function HistoryPage({ onNavigate }) {
+export default function HistoryPage() {
+  const navigate = useNavigate();
   const [sort, setSort] = useState("newest"); // "newest" | "oldest"
 
   const sorted = [...DUMMY_HISTORY].sort((a, b) => {
@@ -44,7 +46,7 @@ export default function HistoryPage({ onNavigate }) {
       <header className="sticky top-0 z-20 bg-neutral-950/90 backdrop-blur border-b border-neutral-800/60 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
-            onClick={() => onNavigate?.("dashboard")}
+            onClick={() => navigate("/dashboard")}
             className="w-9 h-9 rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-all"
           >
             <ArrowLeftIcon />
@@ -85,7 +87,7 @@ export default function HistoryPage({ onNavigate }) {
             return (
               <button
                 key={item.id}
-                onClick={() => onNavigate?.("result")}
+                onClick={() => navigate("/result/demo")}
                 className="w-full flex items-center gap-4 px-5 py-4 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 rounded-2xl transition-all duration-150 group text-left"
               >
                 {/* 번호 */}

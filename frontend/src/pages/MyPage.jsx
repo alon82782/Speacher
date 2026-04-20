@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../stores/authStore";
 
 // ─────────────────────────────────────────────
 // Speacher — MyPage.jsx
@@ -22,7 +24,9 @@ const DUMMY_USER = {
 const INPUT_BASE =
   "w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all duration-200";
 
-export default function MyPage({ onNavigate }) {
+export default function MyPage() {
+  const navigate = useNavigate();
+  const { clearAuth } = useAuthStore();
   const [user, setUser] = useState(DUMMY_USER);
 
   // 회원정보 수정
@@ -68,7 +72,7 @@ export default function MyPage({ onNavigate }) {
       {/* 헤더 */}
       <header className="sticky top-0 z-20 bg-neutral-950/90 backdrop-blur border-b border-neutral-800/60 px-6 py-4 flex items-center gap-4">
         <button
-          onClick={() => onNavigate?.("dashboard")}
+          onClick={() => navigate("/dashboard")}
           className="w-9 h-9 rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-all"
         >
           <ArrowLeftIcon />
@@ -193,7 +197,7 @@ export default function MyPage({ onNavigate }) {
         <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-3">
           {/* 로그아웃 */}
           <button
-            onClick={() => onNavigate?.("logout")}
+            onClick={() => (() => { clearAuth(); navigate("/"); })()}
             className="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-neutral-800 text-neutral-400 hover:text-white text-sm transition-all group"
           >
             <div className="flex items-center gap-3">
@@ -225,7 +229,7 @@ export default function MyPage({ onNavigate }) {
                 <button
                   onClick={() => {
                     // TODO: DELETE /api/v1/auth/me
-                    onNavigate?.("auth");
+                    navigate("/");
                   }}
                   className="flex-1 py-2 rounded-xl bg-red-500 hover:bg-red-400 text-white text-sm font-semibold transition-all"
                 >

@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 // ─────────────────────────────────────────────
 // Speacher — UploadPage.jsx
@@ -15,7 +16,8 @@ const CALIBRATION_STEPS = [
   { icon: "🎙️", title: "아래 문장을 읽어주세요", desc: "\"안녕하세요, 지금부터 발표를 시작하겠습니다.\"" },
 ];
 
-export default function UploadPage({ onNavigate }) {
+export default function UploadPage() {
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState("");
@@ -71,7 +73,7 @@ export default function UploadPage({ onNavigate }) {
     }
 
     setUploading(false);
-    onNavigate?.("analyzing");
+    navigate("/analyzing/demo");
   };
 
   const formatSize = (bytes) => {
@@ -89,7 +91,7 @@ export default function UploadPage({ onNavigate }) {
       {/* 헤더 */}
       <header className="sticky top-0 z-20 bg-neutral-950/90 backdrop-blur border-b border-neutral-800/60 px-6 py-4 flex items-center gap-4">
         <button
-          onClick={() => onNavigate?.("dashboard")}
+          onClick={() => navigate("/dashboard")}
           className="w-9 h-9 rounded-xl bg-neutral-800 hover:bg-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-150"
         >
           <ArrowLeftIcon />
