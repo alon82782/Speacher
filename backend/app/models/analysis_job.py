@@ -5,10 +5,10 @@ from app.db.base import Base, TimestampMixin
 
 
 class JobStatus(str, enum.Enum):
-    PENDING    = "pending"
-    PROCESSING = "processing"
-    COMPLETED  = "completed"
-    FAILED     = "failed"
+    PENDING    = "PENDING"
+    PROCESSING = "PROCESSING"
+    COMPLETED  = "COMPLETED"
+    FAILED     = "FAILED"
 
 
 class AnalysisJob(Base, TimestampMixin):
