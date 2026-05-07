@@ -197,7 +197,7 @@ export default function MyPage() {
         <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-3">
           {/* 로그아웃 */}
           <button
-            onClick={() => (() => { clearAuth(); navigate("/"); })()}
+            onClick={() => { clearAuth(); navigate("/"); }}
             className="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-neutral-800 text-neutral-400 hover:text-white text-sm transition-all group"
           >
             <div className="flex items-center gap-3">

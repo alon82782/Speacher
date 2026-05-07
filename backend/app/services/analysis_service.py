@@ -64,15 +64,17 @@ class AnalysisService:
 
         logger.info(f"[Job 생성] job_uuid={job_uuid} user_id={user.id}")
 
-        # 4. Celery 태스크 발송 (Phase 5에서 활성화)
-        # from app.tasks.analysis_task import run_analysis
-        # task = run_analysis.delay(
-        #     job_id=job_uuid,
-        #     file_path=file_path,
-        #     user_id=user.id,
-        #     meta={"title": file_title, "target_duration_sec": target_duration_sec},
-        # )
-        # await crud.update_job_status(db, job, JobStatus.PROCESSING, celery_task_id=task.id)
+        # 4. Celery 태스크 발송
+        from app.tasks.analysis_task import run_analysis
+        task = run_analysis.delay(
+            job_uuid=job_uuid,
+            file_path=file_path,
+            user_id=user.id,
+            meta={"title": file_title, "target_duration_sec": target_duration_sec},
+        )
+        await crud.update_job_status(
+            db, job, JobStatus.PROCESSING, celery_task_id=task.id
+        )
 
         return job
 

@@ -80,6 +80,8 @@ const useDummyProgress = (onComplete) => {
 // };
 
 export default function AnalyzingPage() {
+  const navigate = useNavigate();
+  const { jobId = "demo" } = useParams();
   const { currentStep, stepProgress, totalProgress, done } = useDummyProgress(
     () => navigate(`/result/${jobId}`)
   );

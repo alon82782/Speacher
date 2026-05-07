@@ -24,9 +24,22 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from app.core.exceptions import SpeacherException
+
 
 def register_error_handlers(app: FastAPI) -> None:
     """main.py의 app에 에러 핸들러 등록"""
+
+    # ── 도메인 예외 (NotFoundException, ForbiddenException, …) ────
+    @app.exception_handler(SpeacherException)
+    async def speacher_exception_handler(request: Request, exc: SpeacherException):
+        return JSONResponse(
+            status_code=exc.status_code,
+            content={
+                "success": False,
+                "error": {"code": exc.error_code, "message": exc.message},
+            },
+        )
 
     # ── HTTP 에러 (404, 401, 403, 409 등) ────────────────────────
     @app.exception_handler(StarletteHTTPException)

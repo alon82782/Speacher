@@ -22,47 +22,32 @@ class LoginRequest(BaseModel):
     password: str
 
 
-class UpdateMeRequest(BaseModel):
-    name: str = Field(min_length=1, max_length=50)
+class UpdateProfileRequest(BaseModel):
+    name: str | None = None
 
 
-class UpdatePasswordRequest(BaseModel):
+class ChangePasswordRequest(BaseModel):
     current_password: str
     new_password: str = Field(min_length=8, max_length=100)
 
 
-class DeleteAccountRequest(BaseModel):
-    password: str
-
-
-class RefreshTokenRequest(BaseModel):
+class RefreshRequest(BaseModel):
     refresh_token: str
 
 
-class UserResponse(BaseModel):
+class TokenPair(BaseModel):
+    access_token: str
+    refresh_token: str
+    token_type: str = "bearer"
+
+
+class UserProfile(BaseModel):
     id: int
     email: str
     name: str
     is_active: bool
     created_at: datetime
     model_config = {"from_attributes": True}
-
-
-class LoginResponse(BaseModel):
-    user: UserResponse
-    access_token: str
-    refresh_token: str
-    token_type: str = "bearer"
-
-
-class VerifyResponse(BaseModel):
-    valid: bool
-    user_id: int | None = None
-
-class TokenPair(BaseModel):
-    access_token: str
-    refresh_token: str
-    token_type: str = "bearer"
 
 
 class RegisterResponse(BaseModel):
@@ -74,33 +59,12 @@ class RegisterResponse(BaseModel):
 class LoginResponse(BaseModel):
     message: str
     tokens: TokenPair
-    user: UserResponse
-
-
-class RefreshRequest(BaseModel):
-    refresh_token: str
+    user: UserProfile
 
 
 class RefreshResponse(BaseModel):
     access_token: str
 
 
-class UpdateProfileRequest(BaseModel):
-    name: str | None = None
-
-
-class ChangePasswordRequest(BaseModel):
-    current_password: str
-    new_password: str
-
-
 class MessageResponse(BaseModel):
     message: str
-
-class UserProfile(BaseModel):
-    id: int
-    email: str
-    name: str
-    is_active: bool
-    created_at: datetime
-    model_config = {"from_attributes": True}

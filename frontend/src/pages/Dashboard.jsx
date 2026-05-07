@@ -52,7 +52,8 @@ const scoreBadgeBg = (score) => {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { user = { name: "사용자" }, clearAuth } = useAuthStore();
+  const { user: rawUser, clearAuth } = useAuthStore();
+  const user = { name: rawUser?.name ?? "사용자", ...rawUser };
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const chartRef = useRef(null);
   const chartInstance = useRef(null);

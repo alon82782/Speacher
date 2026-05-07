@@ -21,3 +21,11 @@ loguru==0.7.2
 slowapi==0.1.9
 pytest==8.3.4
 pytest-asyncio==0.24.0
+
+# 분석 파이프라인 (step2 캘리브레이션 ~ step6 음성)
+# librosa는 mp4/mov 디코딩 시 ffmpeg 바이너리가 PATH에 있어야 함
+opencv-python==4.10.0.84
+mediapipe==0.10.18
+librosa==0.10.2.post1
+numpy==1.26.4
+jiwer==3.0.4

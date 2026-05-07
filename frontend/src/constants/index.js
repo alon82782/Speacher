@@ -6,11 +6,12 @@ export const TOKEN_KEY = "speacher_access_token";
 export const REFRESH_TOKEN_KEY = "speacher_refresh_token";
 
 // ── 분석 Job 상태 ─────────────────────────────────────────────────────────────
+// 백엔드 app/models/analysis_job.py JobStatus enum과 동기화 (대문자 유지)
 export const JOB_STATUS = {
-  PENDING:    "pending",
-  PROCESSING: "processing",
-  COMPLETED:  "completed",
-  FAILED:     "failed",
+  PENDING:    "PENDING",
+  PROCESSING: "PROCESSING",
+  COMPLETED:  "COMPLETED",
+  FAILED:     "FAILED",
 };
 
 // ── 분석 7단계 (AnalyzingPage와 동기화) ──────────────────────────────────────

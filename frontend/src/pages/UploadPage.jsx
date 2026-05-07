@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { SCORE_WEIGHTS } from "../constants";
 
 // ─────────────────────────────────────────────
 // Speacher — UploadPage.jsx
@@ -220,24 +221,28 @@ export default function UploadPage() {
 
         {/* ── 분석 항목 안내 ── */}
         <section className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
-          <h3 className="text-sm font-semibold text-white mb-4">분석 항목</h3>
+          <h3 className="text-sm font-semibold text-white mb-4">분석 항목 (총 100점)</h3>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { label: "시선 처리율", icon: "👁️", weight: "40점", channel: "시각" },
-              { label: "자세 안정성", icon: "🧍", weight: "15점", channel: "시각" },
-              { label: "발화 속도",   icon: "⏱️", weight: "16점", channel: "음성" },
-              { label: "목소리 크기", icon: "🔊", weight: "13점", channel: "음성" },
-              { label: "발음 정확성", icon: "🗣️", weight: "7점",  channel: "어휘" },
-              { label: "필러워드",   icon: "💬", weight: "6점",  channel: "어휘" },
-            ].map((item) => (
-              <div key={item.label} className="flex items-center gap-3 px-3 py-2.5 bg-neutral-800/50 rounded-xl">
-                <span className="text-lg">{item.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="text-xs font-medium text-white">{item.label}</div>
-                  <div className="text-xs text-neutral-500">{item.channel} · {item.weight}</div>
+              { key: "gaze",            icon: "👁️" },
+              { key: "posture",         icon: "🧍" },
+              { key: "speech_rate",     icon: "⏱️" },
+              { key: "volume_pitch",    icon: "🔊" },
+              { key: "pronunciation",   icon: "🗣️" },
+              { key: "filler_word",     icon: "💬" },
+              { key: "time_compliance", icon: "⌛" },
+            ].map(({ key, icon }) => {
+              const w = SCORE_WEIGHTS[key];
+              return (
+                <div key={key} className="flex items-center gap-3 px-3 py-2.5 bg-neutral-800/50 rounded-xl">
+                  <span className="text-lg">{icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs font-medium text-white">{w.label}</div>
+                    <div className="text-xs text-neutral-500">{w.channel} · {w.maxScore}점</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
